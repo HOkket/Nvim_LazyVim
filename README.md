@@ -62,6 +62,6 @@ Esta é a minha configuração pessoal do Neovim, baseada no framework [LazyVim]
 1. Certifique-se de ter o Neovim (>= 0.10) instalado.
 2. Clone este repositório em `~/.config/nvim`:
    ```bash
-   git clone <URL_DO_SEU_REPOSITORIO> ~/.config/nvim
+   git clone https://github.com/HOkket/Nvim---Backup ~/.config/nvim
    ```
 3. Abra o Neovim. O `lazy.nvim` irá baixar e instalar automaticamente todos os plugins configurados.
