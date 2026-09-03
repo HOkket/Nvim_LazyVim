@@ -4,3 +4,6 @@
 
 vim.g.omni_sql_no_default_maps = 1
 
+vim.keymap.set("n", "<leader>ud", function()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end, { desc = "Alternar diagnósticos (Ligar/Desligar)" })
