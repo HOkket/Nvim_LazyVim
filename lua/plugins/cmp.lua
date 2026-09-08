@@ -13,7 +13,7 @@ return {
       },
       keymap = {
         -- Define Ctrl + d para abrir/fechar a documentação manualmente
-        ["<C-d>"] = { "show_documentation", "hide_documentation", "fallback" },
+        ["<C-a>"] = { "show_documentation", "hide_documentation", "fallback" },
       },
     },
   },

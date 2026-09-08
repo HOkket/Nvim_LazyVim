@@ -27,7 +27,7 @@ return {
       python = "python3 -u",
       javascript = "node",
       go = "go run",
-      rust = "cd $dir && scalac $fileName && scala $fileNameWithoutExt",
+      rust = "cd $dir && rustc $fileName -o /tmp/$fileNameWithoutExt && /tmp/$fileNameWithoutExt",
       c = "cd $dir && gcc $fileName -o /tmp/$fileNameWithoutExt && /tmp/$fileNameWithoutExt",
     },
   },

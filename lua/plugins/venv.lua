@@ -4,7 +4,6 @@ return {
     "neovim/nvim-lspconfig",
     "nvim-telescope/telescope.nvim",
   },
-  branch = "regexp",
   opts = {
     auto_refresh = true,
   },
