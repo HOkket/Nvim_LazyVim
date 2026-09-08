@@ -85,6 +85,17 @@ return {
             show_model_choices = false,
           },
         },
+
+        -- Adapter ACP para o opencode como opção de IA
+        acp = {
+          opencode = function()
+            return require("codecompanion.adapters").extend("opencode", {
+              defaults = {
+                timeout = 20000,
+              },
+            })
+          end,
+        },
       },
 
       opts = {
@@ -97,19 +108,19 @@ return {
         "<leader>ac",
         "<cmd>CodeCompanionChat Toggle<cr>",
         mode = { "n", "v" },
-        desc = "Alternar chat do Copilot",
+        desc = "Alternar chat de IA (Copilot/OpenCode)",
       },
       {
         "<leader>ai",
         "<cmd>CodeCompanion<cr>",
         mode = { "n", "v" },
-        desc = "Copilot inline",
+        desc = "IA inline",
       },
       {
         "<leader>aa",
         "<cmd>CodeCompanionActions<cr>",
         mode = { "n", "v" },
-        desc = "Ações do Copilot",
+        desc = "Ações de IA",
       },
       {
         "<leader>ae",

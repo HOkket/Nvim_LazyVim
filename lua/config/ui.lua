@@ -34,5 +34,3 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
 -- Aplica imediatamente ao carregar o Neovim
 set_transparency()
-
-return {}

@@ -1,67 +1,108 @@
 # Minha Configuração do Neovim (LazyVim)
 
-Esta é a minha configuração pessoal do Neovim, baseada no framework [LazyVim](https://lazyvim.github.io/).
+Configuração pessoal do [Neovim](https://neovim.io/) baseada no framework [LazyVim](https://lazyvim.github.io/), gerenciada com o [lazy.nvim](https://github.com/folke/lazy.nvim).
 
 ## Estrutura da Configuração
 
 ```text
 ~/.config/nvim/
-├── init.lua              # Ponto de entrada
-├── lazy-lock.json        # Versões dos plugins
-├── lazyvim.json          # Configuração dos extras do LazyVim
+├── init.lua              # Ponto de entrada de bootstrap
+├── lazyvim.json          # Extras ativados do LazyVim
+├── lazy-lock.json        # Versões (commits) travadas dos plugins
+├── stylua.toml           # Configuração do formatador StyLua
 ├── lua/
 │   ├── config/           # Configurações globais
-│   │   ├── autocmds.lua
-│   │   ├── keymaps.lua
-│   │   ├── lazy.lua      # Configuração do gerenciador de plugins (lazy.nvim)
-│   │   ├── options.lua
-│   │   └── ui.lua        # Configurações de UI e Transparência
+│   │   ├── lazy.lua      # Bootstrap e setup do lazy.nvim
+│   │   ├── options.lua   # Opções adicionais do Neovim
+│   │   ├── keymaps.lua   # Keymaps adicionais
+│   │   ├── autocmds.lua  # Autocmds adicionais
+│   │   └── ui.lua        # Transparência (autocmd ColorScheme + aplicação imediata)
 │   ├── plugins/          # Definições específicas de plugins
-│   │   ├── ai.lua        # Copilot e CodeCompanion
-│   │   ├── base16.lua
-│   │   ├── cmp.lua       # Configurações do blink.cmp
-│   │   ├── code-runner.lua
-│   │   └── dbee.lua      # Banco de dados
-│   └── matugen.lua       # Integração com Matugen (temas)
-└── stylua.toml           # Configuração do formatador
+│   │   ├── ai.lua        # Copilot (autocomplete) e CodeCompanion (chat/inline)
+│   │   ├── base16.lua    # Tema base16 + integração com matugen
+│   │   ├── cmp.lua       # Ajustes do blink.cmp (documentação)
+│   │   ├── code-runner.lua # Execução de código
+│   │   ├── dbee.lua      # Banco de dados SQL
+│   │   └── venv.lua      # Seleção de venvs Python
+│   └── matugen.lua       # Tema base16 gerado pelo Matugen (com hot-reload via SIGUSR1)
 ```
 
-## Principais Funcionalidades e Plugins
+## Extras do LazyVim
 
-- **Framework:** LazyVim.
-- **Gerenciador de Plugins:** [lazy.nvim](https://github.com/folke/lazy.nvim).
-- **IA (Assistência):**
-  - [copilot.lua](https://github.com/zbirenbaum/copilot.lua)
-  - [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) para chat, explicação de código, correção e testes.
-- **UI/Visual:**
-  - Suporte total a transparência (configurado em `lua/config/ui.lua`).
-  - Base16 para temas.
-  - [blink.cmp](https://github.com/saghen/blink.cmp) para preenchimento automático.
-- **Produtividade:**
-  - [code_runner.nvim](https://github.com/CRAG666/code_runner.nvim) para execução de código.
-  - [nvim-dbee](https://github.com/kndndrj/nvim-dbee) para gerenciamento de banco de dados.
+Ativados em `lazyvim.json`:
 
-## Atalhos Principais (Keymaps)
+| Extra | Função |
+| --- | --- |
+| `ai.copilot` | Sugestões do GitHub Copilot |
+| `editor.overseer` | Gerenciamento de tarefas (tasks) |
+| `lang.docker` | Suporte a Dockerfile / compose |
+| `lang.git` | Git integrado ao editor |
+| `lang.json` | JSON + schema associados |
+| `lang.markdown` | Markdown renderizado |
+| `lang.python` | LSP, testes e ferramentas Python |
+| `lang.sql` | Banco de dados (vim-dadbod) |
+| `lang.yaml` | YAML |
+| `test.core` | Neotest (testes) |
+| `ui.mini-indentscope` | Indentação visual |
+| `util.gitui` | Interação com git via gitui |
+
+## Funcionalidades e Plugins
+
+### IA (CodeCompanion + Copilot)
+- **[copilot.lua](https://github.com/zbirenbaum/copilot.lua)** — autocomplete inline do Copilot (inserção).
+- **[codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim)** — chat, comandos inline e ações de IA, com **dois adaptadores disponíveis**:
+  - **Copilot** (HTTP) — padrão dos chats, modelo `gpt-4.1`.
+  - **OpenCode** (ACP) — via `opencode acp`. Para alternar dentro do chat, use `ga`.
+- O assistant responde em português por padrão.
+
+### UI/Visual
+- Transparência total (arquivo `lua/config/ui.lua`) aplicada no `ColorScheme`.
+- Tema base16 dinâmico gerado pelo **Matugen** (`lua/matugen.lua`), com recarga automática ao receber o sinal `SIGUSR1`.
+- **blink.cmp** para autocomplete — documentação manual com `<C-a>` (auto-show desativado).
+
+### Produtividade
+- **[code_runner.nvim](https://github.com/CRAG666/code_runner.nvim)** — executa o arquivo atual (Python, JS, Go, Rust, C) num terminal.
+- **[nvim-dbee](https://github.com/kndndrj/nvim-dbee)** — consulta a bancos SQL.
+- **[venv-selector.nvim](https://github.com/linux-cultist/venv-selector.nvim)** — seleção de virtualenvs Python.
+
+## Atalhos Principais
 
 ### IA (CodeCompanion)
-- `<leader>ac`: Toggle Chat
-- `<leader>ai`: Inline Assist
-- `<leader>aa`: Ações rápidas
-- `<leader>ae`: Explicar seleção (visual)
-- `<leader>af`: Corrigir seleção (visual)
-- `<leader>at`: Gerar testes (visual)
+| Atalho | Ação |
+| --- | --- |
+| `<leader>ac` | Alternar chat de IA (Copilot/OpenCode) |
+| `<leader>ai` | IA inline |
+| `<leader>aa` | Ações rápidas de IA |
+| `<leader>ae` | Explicar seleção (visual) |
+| `<leader>af` | Corrigir seleção (visual) |
+| `<leader>at` | Gerar testes (visual) |
+| `ga` (dentro do chat) | Trocar adaptador/modelo |
 
 ### Runner (Code Runner)
-- `<leader>rr`: Run Code (Automático)
-- `<leader>rf`: Run Current File
-- `<leader>rp`: Run Project
-- `<leader>rc`: Close Runner
+| Atalho | Ação |
+| --- | --- |
+| `<leader>rr` | Run Code (automático) |
+| `<leader>rf` | Run Current File |
+| `<leader>rp` | Run Project |
+| `<leader>rc` | Fechar o runner |
+
+### Outros
+| Atalho | Ação |
+| --- | --- |
+| `,v` | Selecionar venv Python |
+| `<C-a>` | Abrir/fechar documentação do autocomplete |
 
 ## Como Instalar
 
-1. Certifique-se de ter o Neovim (>= 0.10) instalado.
-2. Clone este repositório em `~/.config/nvim`:
+1. Tenha o **Neovim >= 0.10** instalado.
+2. Clone o repositório em `~/.config/nvim`:
    ```bash
    git clone https://github.com/HOkket/Nvim---Backup ~/.config/nvim
    ```
-3. Abra o Neovim. O `lazy.nvim` irá baixar e instalar automaticamente todos os plugins configurados.
+3. Abra o Neovim. O `lazy.nvim` instala e configura automaticamente todos os plugins.
+
+## Dependências Externas
+
+- `git`, `node` (Copilot), `rustc`/`gcc`/`python3`/`go` (code runner).
+- `opencode` (se quiser usar o OpenCode como adaptador de IA).
+- `matugen` (para regenerar o tema base16 ao trocar o wallpaper).
