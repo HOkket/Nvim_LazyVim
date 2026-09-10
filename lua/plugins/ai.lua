@@ -27,6 +27,11 @@ return {
         },
 
         copilot_node_command = "node",
+
+        should_attach = function(bufnr)
+          local filename = vim.api.nvim_buf_get_name(bufnr)
+          return filename ~= ""
+        end,
       })
     end,
   },
