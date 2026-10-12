@@ -29,6 +29,8 @@ return {
       go = "go run",
       rust = "cd $dir && rustc $fileName -o /tmp/$fileNameWithoutExt && /tmp/$fileNameWithoutExt",
       c = "cd $dir && gcc $fileName -o /tmp/$fileNameWithoutExt && /tmp/$fileNameWithoutExt",
+      sh = "bash",
+      bash = "bash -x",
     },
   },
 }
