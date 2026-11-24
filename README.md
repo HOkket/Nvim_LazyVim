@@ -72,6 +72,7 @@ Ativados em `lazyvim.json`:
 | `<leader>os` | Selecionar ação do OpenCode |
 | `<leader>or` | Enviar seleção/linha ao OpenCode (operator) |
 | `<leader>oc` | Executar comando do OpenCode |
+| `<C-.>` | Alternar terminal do OpenCode (lateral direita) |
 | `<leader>cp` | Alternar sugestões ghost do Copilot |
 | `<leader>icm` | Alternar Copilot no menu de sugestões |
 | `<M-p>` | Ativar/renovar sugestão ghost |

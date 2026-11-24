@@ -70,8 +70,40 @@ return {
     "nickjvandyke/opencode.nvim",
     -- "main" suporta OpenCode v2
     config = function()
+      local opencode_cmd = "opencode"
+
+      ---@type snacks.terminal.Opts
+      local snacks_terminal_opts = {
+        win = {
+          position = "right",
+          -- Mantém o foco no código ao abrir o terminal.
+          enter = false,
+        },
+      }
+
       ---@type opencode.Opts
-      vim.g.opencode_opts = {}
+      vim.g.opencode_opts = {
+        server = {
+          start = function()
+            require("snacks.terminal").open(opencode_cmd, snacks_terminal_opts)
+          end,
+        },
+      }
+
+      -- Mostra o terminal quando o OpenCode começa a executar uma tarefa.
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "OpencodeEvent:session.execution.started",
+        callback = function()
+          local win = require("snacks.terminal").get(opencode_cmd, { create = false })
+          if win then
+            win:show()
+          end
+        end,
+      })
+
+      vim.keymap.set({ "n", "t" }, "<C-.>", function()
+        require("snacks.terminal").toggle(opencode_cmd, snacks_terminal_opts)
+      end, { desc = "Alternar terminal do OpenCode" })
 
       vim.keymap.set({ "n", "x" }, "<leader>oa", function()
         require("opencode").ask("@this: ")
