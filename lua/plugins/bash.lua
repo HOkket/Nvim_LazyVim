@@ -1,7 +1,7 @@
 -- Suporte a Bash/Shell: LSP, lint (shellcheck), formatação (shfmt) e highlight (treesitter)
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = { ensure_installed = { "bash-language-server", "shellcheck", "shfmt" } },
   },
   {

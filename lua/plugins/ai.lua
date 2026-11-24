@@ -4,6 +4,39 @@ return {
     cmd = "Copilot",
     event = "InsertEnter",
 
+    keys = {
+      {
+        "<leader>cp",
+        function()
+          require("copilot.suggestion").toggle_auto_trigger()
+        end,
+        desc = "Alternar sugestões ghost do Copilot",
+      },
+      {
+        "<leader>cpm",
+        function()
+          vim.g.copilot_cmp_menu = not vim.g.copilot_cmp_menu
+          vim.notify("Copilot no menu: " .. (vim.g.copilot_cmp_menu and "ON" or "OFF"))
+        end,
+        desc = "Alternar Copilot no menu de sugestões",
+      },
+      {
+        "<M-p>",
+        function()
+          local suggestion = require("copilot.suggestion")
+          -- Se estiver desligado, religa (isso já dispara uma nova sugestão).
+          if vim.b.copilot_suggestion_auto_trigger == false then
+            suggestion.toggle_auto_trigger()
+          else
+            -- Sugestão visível: cicla; sem sugestão: pede a next.
+            suggestion.next()
+          end
+        end,
+        mode = "i",
+        desc = "Copilot: ativar/renovar sugestão ghost",
+      },
+    },
+
     config = function()
       require("copilot").setup({
         suggestion = {
