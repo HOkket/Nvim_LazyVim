@@ -18,7 +18,7 @@ Configuração pessoal do [Neovim](https://neovim.io/) baseada no framework [Laz
 │   │   ├── autocmds.lua  # Autocmds adicionais
 │   │   └── ui.lua        # Transparência (autocmd ColorScheme + aplicação imediata)
 │   ├── plugins/          # Definições específicas de plugins
-│   │   ├── ai.lua        # Copilot (autocomplete) e CodeCompanion (chat/inline)
+│   │   ├── ai.lua        # Copilot (ghost) e OpenCode (chat/agente)
 │   │   ├── base16.lua    # Tema base16 + integração com matugen
 │   │   ├── cmp.lua       # Ajustes do blink.cmp (documentação)
 │   │   ├── code-runner.lua # Execução de código
@@ -48,12 +48,10 @@ Ativados em `lazyvim.json`:
 
 ## Funcionalidades e Plugins
 
-### IA (CodeCompanion + Copilot)
-- **[copilot.lua](https://github.com/zbirenbaum/copilot.lua)** — autocomplete inline do Copilot (inserção).
-- **[codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim)** — chat, comandos inline e ações de IA, com **dois adaptadores disponíveis**:
-  - **Copilot** (HTTP) — padrão dos chats, modelo `gpt-4.1`.
-  - **OpenCode** (ACP) — via `opencode acp`. Para alternar dentro do chat, use `ga`.
-- O assistant responde em português por padrão.
+### IA (OpenCode + Copilot)
+- **[copilot.lua](https://github.com/zbirenbaum/copilot.lua)** — sugestões ghost inline do Copilot.
+- **[opencode.nvim](https://github.com/nickjvandyke/opencode.nvim)** — integração com o OpenCode v2: envia contexto do editor (`@this`, `@buffer`, `@diagnostics`), executa comandos e revisa edições com `:diffpatch`.
+- O OpenCode precisa estar instalado e autenticado (`opencode auth login`).
 
 ### UI/Visual
 - Transparência total (arquivo `lua/config/ui.lua`) aplicada no `ColorScheme`.
@@ -67,16 +65,17 @@ Ativados em `lazyvim.json`:
 
 ## Atalhos Principais
 
-### IA (CodeCompanion)
+### IA (OpenCode / Copilot)
 | Atalho | Ação |
 | --- | --- |
-| `<leader>ac` | Alternar chat de IA (Copilot/OpenCode) |
-| `<leader>ai` | IA inline |
-| `<leader>aa` | Ações rápidas de IA |
-| `<leader>ae` | Explicar seleção (visual) |
-| `<leader>af` | Corrigir seleção (visual) |
-| `<leader>at` | Gerar testes (visual) |
-| `ga` (dentro do chat) | Trocar adaptador/modelo |
+| `<leader>oa` | Perguntar ao OpenCode (`@this`) |
+| `<leader>os` | Selecionar ação do OpenCode |
+| `<leader>or` | Enviar seleção/linha ao OpenCode (operator) |
+| `<leader>oc` | Executar comando do OpenCode |
+| `<leader>cp` | Alternar sugestões ghost do Copilot |
+| `<leader>icm` | Alternar Copilot no menu de sugestões |
+| `<M-p>` | Ativar/renovar sugestão ghost |
+| `<M-l>` | Aceitar sugestão ghost |
 
 ### Runner (Code Runner)
 | Atalho | Ação |
