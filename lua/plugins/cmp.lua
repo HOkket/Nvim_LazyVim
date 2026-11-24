@@ -31,7 +31,7 @@ return {
             module = "blink-copilot",
             score_offset = 100,
             async = true,
-            -- Ligado/desligado em runtime por <leader>cpm
+            -- Ligado/desligado em runtime por <leader>icm
             enabled = function()
               return vim.g.copilot_cmp_menu == true
             end,

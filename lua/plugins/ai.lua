@@ -9,11 +9,13 @@ return {
         "<leader>cp",
         function()
           require("copilot.suggestion").toggle_auto_trigger()
+          local on = vim.b.copilot_suggestion_auto_trigger ~= false
+          vim.notify("Copilot ghost: " .. (on and "ON" or "OFF"))
         end,
         desc = "Alternar sugestões ghost do Copilot",
       },
       {
-        "<leader>cpm",
+        "<leader>icm",
         function()
           vim.g.copilot_cmp_menu = not vim.g.copilot_cmp_menu
           vim.notify("Copilot no menu: " .. (vim.g.copilot_cmp_menu and "ON" or "OFF"))
